@@ -12,6 +12,11 @@ from PyInquirer import prompt
 
 
 def menu():
+    '''
+    Main method, displays a menu
+    where the user can select the
+    option he needs
+    '''
     questions = [
 
         {
@@ -36,9 +41,6 @@ def menu():
     })
 
     print("Welcome to GEO locator online")
-
-
-
     stay_on_menu = True
     no_answer = True
     cursor, con = start_db()
@@ -77,7 +79,7 @@ def menu():
                             list_ips = load_ip_data_bulk(data.get("data", {}), cursor, list_ips)
                         else:
                             data = get_geo_individual(list_ips.pop(0))
-                            load_ip_data_individual(data, cursor, list_ips)
+                            load_ip_data_individual(data, cursor)
                         con.commit()
 
                 elif opt == "Look for specific IP information":

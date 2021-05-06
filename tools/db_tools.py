@@ -2,6 +2,13 @@ import sqlite3
 
 
 def start_db():
+    '''
+    Method that starts the database, create the connection to it and returns the cursor and the connection
+    Returns
+    -------
+    cursor : sqlite3 cursor
+    con : database connection
+    '''
     try:
         con = sqlite3.connect('db_temp.db')
         # con = sqlite3.connect(':memory:')
@@ -47,6 +54,20 @@ def create_cursor(con):
 
 
 def load_ip_data_bulk(data, cursor, list_ips):
+    '''
+    Uploads to the database the information in bulks
+    Parameters
+    ----------
+    data : list
+    cursor : connection cursor
+    list_ips : dict
+    List that contains all ip address left to examined
+
+    Returns
+    -------
+    list_ips : list
+    List that contains all ip address left to examined
+    '''
     try:
         for ip_data in data:
             if ip_data.get("error", False):
@@ -67,7 +88,16 @@ def load_ip_data_bulk(data, cursor, list_ips):
         return list_ips
 
 
-def load_ip_data_individual(data, cursor, list_ips):
+def load_ip_data_individual(data, cursor):
+    '''
+    Uploads to the database the information from one ip address lookup
+    Parameters
+    ----------
+    data : list
+    cursor : connection cursor
+    list_ips : dict
+    List that contains all ip address left to examined
+    '''
     try:
         new_row = {"ip": data.get('ip', 'No IP'),
                    "country_code": data.get('country_code', 'No country code'),
@@ -89,6 +119,19 @@ def load_ip_data_individual(data, cursor, list_ips):
 
 
 def delete_existent_data(cursor, list_ips):
+    '''
+    Delete the ip address that are already on the database to caching the information and not making Unnecessary calls
+    to api
+    Parameters
+    ----------
+    cursor : Database cursor
+    list_ips :  list
+
+    Returns
+    -------
+    new_list : list
+    List without already stored information
+    '''
     cursor.row_factory = lambda cursor, row: row[0]
     cursor.execute(f"SELECT ip from geodata")
     list_results = cursor.fetchall()
@@ -97,6 +140,18 @@ def delete_existent_data(cursor, list_ips):
 
 
 def get_one_row(cursor, ip_address):
+    '''
+    Extracts from database the information for one IP Address
+    Parameters
+    ----------
+    cursor : Database cursor
+    ip_address : str
+
+    Returns
+    -------
+    result : dict
+    Information for one ip address
+    '''
     cursor.execute(f"SELECT * from geodata where ip = '{ip_address}'")
     list_results = cursor.fetchone()
     names = [description[0] for description in cursor.description]
@@ -104,6 +159,19 @@ def get_one_row(cursor, ip_address):
 
 
 def get_all_row(cursor):
+    '''
+    Extracts from database the information for all IP Addresses on the database
+    Parameters
+    ----------
+    cursor : Database cursor
+
+    Returns
+    -------
+    names : list
+    Names from the columns on the database table
+    list_results : list
+    Information from the columns on the database table
+    '''
     cursor.execute(f"SELECT * from geodata")
     list_results = cursor.fetchall()
     names = [description[0] for description in cursor.description]
@@ -111,5 +179,15 @@ def get_all_row(cursor):
 
 
 def dump_db(conn):
+    '''
+    Dump information from database table geodata
+    Parameters
+    ----------
+    conn : sqlite connection
+
+    Returns
+    -------
+
+    '''
     conn.execute(f"delete from geodata")
     conn.commit()

@@ -4,6 +4,21 @@ import requests
 
 
 def get_geo_bulk(ips):
+    '''
+
+    Parameters
+    ----------
+    ips : list
+    List that contains the ip address
+
+    Returns
+    -------
+    response.json() : dict
+    Information that is coming from ipapi based on the ip address
+    bulk_flag : boolean
+    If the bulk token get limited by the free user limitations it returns the flag in false to
+                            switch to individual requests
+    '''
     bulk_flag = True
     url = "https://app.ipapi.co/bulk/"
 
@@ -23,6 +38,18 @@ def get_geo_bulk(ips):
 
 
 def get_geo_individual(ip):
+    '''
+    Method that extracts freegeoip information based in a ip address
+    Parameters
+    ----------
+    ip : str
+    IP address that is going to be eliminated
+
+    Returns
+    -------
+    Information from the IP Address based on freegeoip
+
+    '''
     url = "https://freegeoip.app/json/{}".format(ip)
     headers = {
         'accept': "application/json",
