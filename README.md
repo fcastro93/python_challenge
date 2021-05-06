@@ -4,6 +4,7 @@ GEO locator online is a program in Python that can read a given set of IPs, perf
 ## How to use it
 - Open the console
 - Go to the main folder from the app (you should see 2 folders, files and tools, and the main.py file)
+- You need to install the requirements `pip install -r requirements.txt`
 - Type `python main.py`
 - You are going to see a menu wil multiple options. Choose the one that you need.
 
