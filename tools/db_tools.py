@@ -3,9 +3,9 @@ import sqlite3
 
 def start_db():
     try:
-        # con = sqlite3.connect('db_temp.db')
-        con = sqlite3.connect(':memory:')
-        print("Connection is established: Database is created in memory")
+        con = sqlite3.connect('db_temp.db')
+        # con = sqlite3.connect(':memory:')
+        # print("Connection is established: Database is created in memory")
         cursor = create_cursor(con)
         cursor.execute(
             "CREATE TABLE IF NOT EXISTS geodata("
@@ -110,6 +110,6 @@ def get_all_row(cursor):
     return names, list_results
 
 
-def dump_db(cursor):
-    cursor.execute(f"dump table geodata")
-    cursor.commit()
+def dump_db(conn):
+    conn.execute(f"delete from geodata")
+    conn.commit()
