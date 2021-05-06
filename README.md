@@ -1,13 +1,13 @@
-#GEO locator online
+# GEO locator online
 GEO locator online is a program in Python that can read a given set of IPs, perform Geo IP and RDAP lookups, and return the data back to the user via command line or .json file.
 
-##How to use it
+## How to use it
 - Open the console
 - Go to the main folder from the app (you should see 2 folders, files and tools, and the main.py file)
 - Type `python main.py`
 - You are going to see a menu wil multiple options. Choose the one that you need.
 
-###Menu options
+### Menu options
 * Load file with IP Address:
     The core function for this app, you can upload a file with IP Address on it, no need to only have that, can be mixed with text. 
     This information is used to get data like city name, language, etc. 
@@ -37,5 +37,6 @@ There is some stuff that can be optimize, here is the primary TODO stuff that i 
 - Make threads for store information, should be more quick to store information if we manage multiple threads for this one
 - Better exception managing
 - Include pytest (Super important!)
+- Add customize output, like a filter for only IP and countries for example
 
 Any question don't hesitate in ask
