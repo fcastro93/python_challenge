@@ -38,5 +38,6 @@ There is some stuff that can be optimize, here is the primary TODO stuff that i 
 - Better exception managing
 - Include pytest (Super important!)
 - Add customize output, like a filter for only IP and countries for example
+- Improve way to display ip lookup information on the console, right now is uggly
 
 Any question don't hesitate in ask
